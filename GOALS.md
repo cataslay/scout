@@ -5,8 +5,11 @@ Goals :
 *  Create Manageable data server
 *  Use SQL or have easy way to view and sort through stats
 *  Easy modification 
-*  Offline data retention
+*  Offline data retention (cookies?)
 *  Be able to easily correct mistakes through the website ( or in some way)
+-
+*  Should be able to see a timeline and change and delete data based on in
+*  Should be able to save offline data and then send it to the server once connection is established and then delete it off local storage
 ---
 Types of data :
 ---
