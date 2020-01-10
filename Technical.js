@@ -1,13 +1,11 @@
 class Technical {
-	Technical()
+	constructor(nameIn)
 	{
+		this.name = nameIn;
+		this.bool = false;
 	
 	}
-
-	var bool = false;
-	
-	if("event occurs")
-	{
-		bool = "value";
-	}
+		setBool(inBool){
+			bool = inBool;
+		}
 }
