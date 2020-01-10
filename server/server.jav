@@ -1,28 +1,31 @@
 import java.net.*;
 import java.time.LocalDate;
 public class server{
-    public static void main(String []args){
+    public static void main(String []args) throws IOException{
 
-        final ServerSocket server = new ServerSocket(args[0]); // initializes the serverSocket that will listen for client requests https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html
+        final ServerSocket server = new ServerSocket(args[0]); 
 
         for(String i : args)
         {
-            System.out.println(i);// prints out starting conditions
+            System.out.println(i);
         } 
         System.out.println("Listening for connection on port 8080 ....");
 
-        while(true){//used to continually execute the code
-            try {// As to not error out of the code
-                Socket client = server.accept(); //Should be a blocking call until the server connects to the client https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html 
+        while(true){ try(Socket client = server.accept()) {
+        
             
                 InputStreamReader isr = new InputStreamReader(socket.InputStream());
-            
-            
-            
-            
-            
+                BufferedReader buff = new BufferedReader(isr);
+                String lineIn = buff.readLine();
+
+                while(lineIn != null){
+                    System.out.println(lineIn);
+                    lineIn= buff.readLine();
+                }
+
             } catch (Exception e) {
-               System.out.println(localDate.now().toString() + "Error Occurred: Server was unable to recieve request from client " + client);
-            }}
-    }
+               System.out.println(localDate.now().toString() + "Error Occurred: Server was unable to recieve request from client "); 
+               }
+            }
+         }
 }
