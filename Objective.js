@@ -1,15 +1,18 @@
 class Objective {
-	Objective()
+	constructor(nameIn)
 	{
+		this.name = nameIn;
+		this.objectCount = 0;
+		this.pointValue = 0;
 		
 	}
-	var objectCount = 0;
-	if("Event is called")
-	{
-		increaseObject()
-	}
-	function increaseObject()
+	
+	increaseObject()
 	{
 		objectCount++;
+	}
+	 getPointValue()
+	{
+		return pointValue;
 	}
 }
