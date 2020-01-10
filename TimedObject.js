@@ -22,7 +22,7 @@ class TimedObject {
 	}
 	reset()
 	{
-		timeElapsed = 0;
+		timeElapsed = 0; 
 		achieved = false;
 		isRecording = false;
 	}
