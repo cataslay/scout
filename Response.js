@@ -1,11 +1,15 @@
 class Response {
-	Response()
+
+	constructor(nameIn)
 	{
-		
+		this.name = nameIn;
+		this.scale = 0;	
+
 	}
-	var scale;
-	if("push is occuring")
-	{
-		scale = "Value taken in"
+	setScale(input){
+		scale = input;
+	}
+	getScale(input){
+		return scale;
 	}
 }
