@@ -1,23 +1,29 @@
 class TimedObject {
 
-	constructor()
+	constructor(nameIn)
 	{
-		
+		this.name = nameIn
+		this.isRecording = false;
+		this.dateBegin = Date.now();
+		this.timeElapsed = 0;
+		this.dateStop = 0;
+		this.achieved = false;
 	}
-
-	var timeElapsed = 0;
-	var dateBegin;
-	
-	if("Start input is recieved")
+	beginRecord()
 	{
 		dateBegin = Date.now();
+		isRecording = true;
 	}
-	if("Stop input is recieved")
+	stopRecord()
 	{
-		timeElapsed = (dateBegin / 1000) - (Date.now() / 1000);
+		if(this.isRecording){
+		timeElapsed = (dateBegin / 1000) - (Date.now() / 1000);}
+		isRecording = false;
 	}
-	if("reset input")
+	reset()
 	{
 		timeElapsed = 0;
+		achieved = false;
+		isRecording = false;
 	}
 }
