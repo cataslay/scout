@@ -1,4 +1,23 @@
 Robotics Scouting Program
+  2020 INFINITE RECHARGE COMPETITION
+
+---
+Java:
+* The Java libraries we used are 
+  * java.net.*
+    * Used for creating and using the server throughout the program
+  * java.time.localDate
+    * Used to record and display the time of each cycle of the server
+  * 
+---
+Javascript:
+* The Javascript libraries we used are 
+  * 
+    * Used 
+---
+Made By:
+* Matthew Adragna
+* Benjamin Davidson
 ---
 Goals :
 ---
@@ -7,7 +26,6 @@ Goals :
 *  Easy modification 
 *  Offline data retention (cookies?)
 *  Be able to easily correct mistakes through the website ( or in some way)
--
 *  Should be able to see a timeline and change and delete data based on in
 *  Should be able to save offline data and then send it to the server once connection is established and then delete it off local storage
 ---
