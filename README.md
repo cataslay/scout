@@ -1,6 +1,6 @@
 Robotics Scouting Program
-*2020 INFINITE RECHARGE COMPETITION
-*Written in Java and Javascript
+* 2020 INFINITE RECHARGE COMPETITION
+* Written in Java and Javascript
 ---
 Java:
 * The Java libraries we used are 
