@@ -1,6 +1,14 @@
-import java.net.*;
 import java.time.LocalDate;
-public class server{
+import java.net.*;
+public class Server implements Runnable{
+    private Socket jasonsSock;
+
+    public Server(Socket in){
+        jasonsSock = in;
+    }
+
+
+
     public static void main(String []args) throws IOException{
 
         final ServerSocket server = new ServerSocket(args[0]); 
@@ -10,22 +18,19 @@ public class server{
             System.out.println(i);
         } 
         System.out.println("Listening for connection on port 8080 ....");
-
-        while(true){ try(Socket client = server.accept()) {
-        
-            
-                InputStreamReader isr = new InputStreamReader(socket.InputStream());
-                BufferedReader buff = new BufferedReader(isr);
-                String lineIn = buff.readLine();
-
-                while(lineIn != null){
-                    System.out.println(lineIn);
-                    lineIn= buff.readLine();
-                }
-
-            } catch (Exception e) {
-               System.out.println(localDate.now().toString() + "Error Occurred: Server was unable to recieve request from client "); 
-               }
+        try{
+        while(true){
+            Server servyBoi = new Server(server.accept());
+                servyBoi.start();
+             }
             }
+         }
+
+
+         @Override
+         public void run(){
+                BufferedReader buff = new BufferedReader(jasonSock.getOutputStream());
+
+
          }
 }
