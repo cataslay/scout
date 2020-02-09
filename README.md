@@ -45,7 +45,30 @@ Modifier:
 *   Autonomous/ sandstorm
 *   Boost / downgrade
 ---
+<<<<<<< HEAD
 JSON Format:
 ----
 Listed:
 {Objectives ; "[]"}
+=======
+Data intake for 2020:
+---
+*  StartingPosition(int)
+*  ballHighOuter(Objective)
+*  ballHighAutonomous(Objective)
+*  ballHighInner(Objective)
+*  ballHighInnerAutonomous(Objective)
+*  ballLow(Objective)
+*  ballLowAutonomous(Objective)
+*  diskSpun(timedObject)
+*  climb(timedObject)
+*  DriverRating(OpinionResponse)
+*  RobotRating(OpinionResponse)
+---
+JSON FORMAT:
+---
+{"startPos": name,
+"ballHighOuter" :
+blah blah blah
+}
+>>>>>>> bc85bf6253d59990dbf0d2128d908e5d48f83ffd
