@@ -31,7 +31,7 @@ Goals :
 ---
 Types of data :
 ---
-*   Objective - () (putting something on the scale)
+*   Objective - () (putting something on the scale) - Can be Modified
 *   Out of Field Interaction - (type) (Powerup blocks)
 *   OneTimer - (boolean) (crossing the line in autonomous)
 *   Timed Objects - (boolean / time)   (climb)
@@ -45,3 +45,7 @@ Modifier:
 *   Autonomous/ sandstorm
 *   Boost / downgrade
 ---
+JSON Format:
+----
+Listed:
+{Objectives ; "[]"}

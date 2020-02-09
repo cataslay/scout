@@ -8,6 +8,7 @@ class TimedObject {
 		this.timeElapsed = 0;
 		this.dateStop = 0;
 		this.achieved = false;
+		// this.stage = 0; For games where there can be multiple states for a timed objects, such as multiple heights to climb to
 	}
 	beginRecord()
 	{
@@ -26,4 +27,5 @@ class TimedObject {
 		achieved = false;
 		isRecording = false;
 	}
+	//need to make sure that these objects can be converted into JSON before sent over.
 }
