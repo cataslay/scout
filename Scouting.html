@@ -13,11 +13,11 @@
     </div>
     <br><br>
     <div class = "container">
-        <div class = "low">Low Ball
-            <div class="buttonDiv">
-                <btn type="button" class="lowDec" onclick = "decreaseLow()">&#60;</btn>
-                <div href="#" class = "display lowDis" id="low">0</div>
-                <btn type="button" class="lowInc" onclick = "increaseLow()">&#62;</btn>
+        <div class = "innerObject">Low Ball
+            <div class="objButton">
+                <btn type="button" class="objButton" onclick = "decreaseLow()">&#60;</btn>
+                <div href="#" class = "objDisplay" id="low">0</div>
+                <btn type="button" class="objButton" onclick = "increaseLow()">&#62;</btn>
             </div>   
             <input type="checkbox" name="verLow" id ="verLow" onclick="setAutoLow()">
             <label for="verLow"> Verify Low Auto/Baseline</label><br>
@@ -32,10 +32,10 @@
     
     
         <div class = "high">High Ball
-            <div class="buttonDiv">
-                <btn type="button" class="highDec" onclick = "decreaseHigh()">&#60;</btn>
-                <div href="#" class = "display highDis" id="high">0</div>
-                <btn type="button" class="highInc" onclick = "increaseHigh()">&#62;</btn>
+            <div class="objButton">
+                <btn type="button" class="objButton" onclick = "decreaseHigh()">&#60;</btn>
+                <div href="#" class = "display" id="high">0</div>
+                <btn type="button" class="objButton" onclick = "increaseHigh()">&#62;</btn>
             </div>  
             <input type="checkbox" name="verHigh" id="verHigh" onclick="setAutoHigh()">
             <label for="verLow"> Verify High Auto/Baseline</label><br>
@@ -137,7 +137,7 @@
 </div>
 </div>
     <div class="container push">
-    <btn type="button" class="startBtn submit" onclick="calcInfo();pushInfo()">Submit</btn>
+    <btn type="button" class="startBtn submit" onclick="pushInfo()">Submit</btn>
     </div>
 </body>
 

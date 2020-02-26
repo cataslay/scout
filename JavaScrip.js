@@ -6,51 +6,6 @@ var resps = {bot : new Response("bot"), driveTrain : new Response("driveTrain") 
 var techs = {death : new Response("drive"), baseLine : new Technical("baseline")};
 var timed = {climb: new TimedObject("climb"), colorRec: new TimedObject("colorRecognition"), rotControl: new TimedObject("rotControl")};
 // Make the code auto fill out html elements according to whats in the sets and then use those html elements to use their representative functions for what they are.
-
-
-// function decreaseLow(){ 
-    
-//     document.getElementById("low").innerHTML = autoLow + --lowCounter;
-// }
-// function increaseLow(){
-//     document.getElementById("low").innerHTML = autoLow + ++lowCounter;
-// }
-// function decreaseHigh() {  
-//     if(highCounter != 0)
-//         {
-//             document.getElementById("high").innerHTML = autoHigh + --highCounter;
-//         }
-// }
-// function increaseHigh(){
-//     document.getElementById("high").innerHTML = autoHigh + ++highCounter;
-// }
-// function setAutoLow()
-// {
-//     if(document.getElementById("verLow").checked == true)
-//         {
-//             autoLow = lowCounter;
-//             lowCounter = 0;
-//         }
-//     else
-//         {
-//             lowCounter = lowCounter + autoLow;
-//             autoLow = 0;
-//         }
-// }
-// function setAutoHigh()
-// {
-//     if(document.getElementById("verHigh").checked == true)
-//         {
-//             autoHigh = highCounter;
-//         highCounter = 0;
-//         }
-//     else
-//         {
-//             highCounter = highCounter + autoHigh;
-//             autoHigh = 0;
-//         }
-// }
-
 var status_sw1 = 0;
 var status_sw2 = 0;
 var status_sw3 = 0;
@@ -275,121 +230,14 @@ if(t == 135000){
 
 }
 
-// function calcInfo(){
-//     finalColor = "N/A";
-//     finalClimb = "N/A";
-//     finalRot = "N/A";
-//     if(document.getElementById("verLow").checked == true){
-//        totalPoints += autoLow * 2;
-//        }
-    
-//     if(document.getElementById("verHigh").checked == true)
-//         {
-//             totalPoints += autoHigh * 4;
-//         }
-    
-//     if(document.getElementById("verHigh").checked == true || document.getElementById("verLow").checked == true)
-//         {
-//             baseLine = true;
-//             totalPoints += 5
-//         }
-//     totalPoints += (lowCounter) + (highCounter * 2);
-//     if(document.getElementById("verRotate").checked == true)
-//         {
-//             rotational = true;
-//             finalRot = getTime(time_sw1);;
-//             totalPoints += 10    
-//         }
-//     if(document.getElementById("verColor").checked == true)
-//         {
-//             colorSelect = true;
-//             finalColor = getTime(time_sw2);
-//             totalPoints += 20;
-//         }
-//     if(document.getElementById("verClimb").checked == true)
-//         {
-//             climb = true;
-//             finalClimb = getTime(time_sw3);
-//             totalPoints += 30//Check to see if i need to sub 5 from this because the climb includes park points   
-//         }
-//     totalRot += time_sw1;
-//     totalColor += time_sw2;
-//     totalClimb += time_sw3;
-//     totalRot = getTime(totalRot)
-//     totalColor = getTime(totalColor);
-//     totalClimb = getTime(totalClimb);
-//     driving = document.getElementById("driving").options[document.getElementById("driving").selectedIndex].text; 
-//     bot = document.getElementById("bot").options[document.getElementById("bot").selectedIndex].text; 
-//     driveTrain = document.getElementById("dTrain").options[document.getElementById("dTrain").selectedIndex].text; 
-//     climbPos =document.getElementById("climbPos").options[document.getElementById("climbPos").selectedIndex].text; 
-//     death = document.getElementById("die").options[document.getElementById("die").selectedIndex].text; 
-// }
-
 function pushInfo(){
-   var JSONout = ""; // does reset everythingor j refersh the page?
+   var JSONout = ""; // convert objects to json here
 }
-  //Do the json bro
-    // var myObj =
-    //     { 
-    //         "Autonomous" : [
-    //         {
-    //             "Low" : autoLow,
-    //             "High" : autoHigh
-    //         }
-    //         ],
-    //         "Teleop":[
-    //         {
-    //         "Points": [
-    //             {
-    //                 "From Balls":
-    //                     {
-    //                         "Low Container": lowCounter,
-    //                         "High Container": highCounter,
-    //                     "Total Points": lowCounter * 2 + highCounter * 4,
-    //                     },
-    //                 "Total Points":totalPoints
-    //             }
-    //         ],
-    //         "Elements": [
-    //             {
-    //                 "Climb": 
-    //                     {
-    //                         "Time to Climb": finalClimb,
-    //                         "Total Time to Climb": totalClimb,
-    //                         "Success": climb,
-    //                     },
-    //                 "Rotaion":
-    //                     {
-    //                         "Time to Rotate": finalRot,
-    //                         "Total Time to Rotate": totalRot,
-    //                         "Success": rotational,
-    //                     },
-    //                  "Color":
-    //                     {
-    //                         "Time to Select Color": finalColor,
-    //                         "Total Time to Select Color": totalColor,
-    //                         "Success": colorSelect,
-    //                     }
-    //             }
-    //         ],
-    //         "Opinion":
-    //             {
-    //                 "Driving": driving,
-    //                 "Bot": bot,
-    //                 "Drive Train": driveTrain,
-    //                 "Climbing Position": climbPos,
-    //                 "Did it Die?": death,
-    //             }
-    //         }
-    //         ]
-    //     }
-
-
 //Classes from here on
 class Objective {
 	constructor(nameIn,multIn,multModIn)
 	{
-		this.timeMod = 13500; // Time that modifier stops working, so for example autonomous ends at 15 seconds in
+		this.timeMod = 135000; // Time that modifier stops working, so for example autonomous ends at 15 seconds in
 		this.name = nameIn;
 		this.objectCountTotal = 0;
 		this.objectCountModified = 0;
@@ -400,7 +248,7 @@ class Objective {
 	}
 	constructor(nameIn,multModIn)
 	{
-		this.timeMod = 15000;
+		this.timeMod = 135000;
 		this.name = nameIn;
 		this.objectCountTotal = 0;
 		this.objectCountModified = 0;
@@ -411,7 +259,7 @@ class Objective {
 	}
 	constructor(nameIn)
 	{
-		this.timeMod = 15000;
+		this.timeMod = 135000;
 		this.name = nameIn;
 		this.objectCountTotal = 0;
 		this.objectCountModified = 0;
@@ -428,38 +276,46 @@ class Objective {
 	decreaseObject(time)
 	{
 		objectCount += pointValue * (time > timeMod)? mult : multMod;
-	}
-	// increaseObjectMod() // modified point values such as autonomous
-	// {
-	// 	objectCount += pointValue * multMod;
-	// }
-	// decreaseObjectMod()
-	// {
-	// 	objectCount -= pointValue * multMod;
-	// }
+    }
+    
 	 getPointValue()
 	{
 		return pointValue;
 	}
 	makeElement(){
-        document.getElementById("divObj");
-        var element = document.createElement("div", {id : this.name + "div"});
-        element.appendChild(document.createElement(
+        var element = document.createElement(
+            "div", {
+            id : this.name,
+            class : outerObject
+        });
+        let y  = document.createElement(
+            "div" , {
+                id : this.name, class: innerObject
+            });
+            y.textContent += this.name;
+            element.appendChild(y);
+        y.appendChild(document.createElement(
             "btn",
             {
-                id: this.name + "downButton",
-                onClick: this.increaseObject
-                }))
-        element.appendChild(document.createElement(
-                    "div",
-                    {
-                        id: this.name + "Display"
-                    }))
+                id: this.name + "IncreaseButton",
+                onClick: this.increaseObject,
+                class : objButton
+                }));
+        y.appendChild(document.createElement(
+             "div",
+                {
+                     id: this.name + "Display",
+                     href : "#",
+                     class : display
+                 }));
          
-        element.appendChild(document.createElement(
-                    "btn",
-                    {onClick: this.increaseObject,
-                         id: this.name + "UpButton"}))
+        y.appendChild(document.createElement(
+            "btn",
+            {
+                id: this.name + "DecreaseButton",
+                onClick: this.decreaseObject,
+                class : objButton
+                }));
 
 	}
 }
