@@ -1,22 +1,10 @@
-// var lowCounter = 0;
-// var highCounter = 0;
-// var autoLow = 0;
-// var autoHigh = 0;
-// var totalRot = 0; 
-// var totalColor = 0;
-// var totalClimb = 0; 
-// var finalRot, finalColor, finalClimb; 
+
 var t;
-// var totalPoints = 0;
-// var baseLine = false;
-// var climb = false;
-// var rotational = false;
-// var colorSelect = false;
-// var driving, bot, driveTrain, climbPos, death;
-var objs = {highBall : new Objective("highBall"), highBallInner : new Objective("highBallInner"), lowBall : new Objective("lowBall")};
+var pastActionsInverse = [];
+var objs = {highBall : new Objective("highBall"), highBallInner : new Objective("highBallInner",2), lowBall : new Objective("lowBall")};
 var resps = {bot : new Response("bot"), driveTrain : new Response("driveTrain") , climbPos : new Response("climbPos"), driving : new Response("driving")};
-var techs = {death : new Response("drive")};
-var timed = {climb: new TimedObject("climb"),colorRec: new TimedObject("colorRecognition"), rotControl: new TimedObject("rotControl")};
+var techs = {death : new Response("drive"), baseLine : new Technical("baseline")};
+var timed = {climb: new TimedObject("climb"), colorRec: new TimedObject("colorRecognition"), rotControl: new TimedObject("rotControl")};
 // Make the code auto fill out html elements according to whats in the sets and then use those html elements to use their representative functions for what they are.
 
 
@@ -80,7 +68,11 @@ var timerLabel2 = document.getElementById("timerLabel2");
 var timerLabel3 = document.getElementById("timerLabel3");
 
 var moveAllBtn = document.getElementById("moveAllBtn");
-
+function onLoad(){
+    for(element in obj){
+        
+    }
+}
 function changeColor(obj){
     var btn = obj.id;
     if(document.getElementById(btn).innerHTML == "Start")
@@ -134,7 +126,6 @@ function noHover(obj)
 function start_stop(obj) {
 
     var stopwatch = obj.id;
-
     if (stopwatch == 'start1') {
         if (status_sw1 == 0) {
             status_sw1 = 1;
@@ -257,12 +248,13 @@ function getTime(time) {
 
 function startGame()
 {
+    autoTime = true;
 var deadline = Date.now() + 151000; 
 
 var x = setInterval(function() { 
 
 var now = new Date().getTime(); 
-t = deadline - now; 
+ t = deadline - now; 
 var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
 var seconds = Math.floor((t % (1000 * 60)) / 1000); 
 document.getElementById("minute").innerHTML = minutes;
@@ -270,159 +262,220 @@ if(seconds < 10){
     document.getElementById("second").innerHTML = "0" + seconds;
 }
 else{
-    document.getElementById("second").innerHTML =seconds; 
+    document.getElementById("second").innerHTML = seconds; 
 }
 if(t == 135000){
-    autoHigh = highCounter;
-    autoLow = lowCounter;
-    highCounter = 0;
-    lowCounter = 0;
+    !autoTime;
 }
-if (t < 0) {  
-		document.getElementById("gameTimeBox").innerHTML = "Game Over!";
-		document.getElementById("minute").innerHTML ='0' ; 
-		document.getElementById("second").innerHTML = '0'; } 
 }, 1000); 
+ 
+    document.getElementById("gameTimeBox").innerHTML = "Game Over!";
+    document.getElementById("minute").innerHTML ='0' ; 
+    document.getElementById("second").innerHTML = '0'; 
+
 }
 
-function calcInfo(){
-    finalColor = "N/A";
-    finalClimb = "N/A";
-    finalRot = "N/A";
-    if(document.getElementById("verLow").checked == true){
-       totalPoints += autoLow * 2;
-       }
+// function calcInfo(){
+//     finalColor = "N/A";
+//     finalClimb = "N/A";
+//     finalRot = "N/A";
+//     if(document.getElementById("verLow").checked == true){
+//        totalPoints += autoLow * 2;
+//        }
     
-    if(document.getElementById("verHigh").checked == true)
-        {
-            totalPoints += autoHigh * 4;
-        }
+//     if(document.getElementById("verHigh").checked == true)
+//         {
+//             totalPoints += autoHigh * 4;
+//         }
     
-    if(document.getElementById("verHigh").checked == true || document.getElementById("verLow").checked == true)
-        {
-            baseLine = true;
-            totalPoints += 5
-        }
-    totalPoints += (lowCounter) + (highCounter * 2);
-    if(document.getElementById("verRotate").checked == true)
-        {
-            rotational = true;
-            finalRot = getTime(time_sw1);;
-            totalPoints += 10    
-        }
-    if(document.getElementById("verColor").checked == true)
-        {
-            colorSelect = true;
-            finalColor = getTime(time_sw2);
-            totalPoints += 20;
-        }
-    if(document.getElementById("verClimb").checked == true)
-        {
-            climb = true;
-            finalClimb = getTime(time_sw3);
-            totalPoints += 30//Check to see if i need to sub 5 from this because the climb includes park points   
-        }
-    totalRot += time_sw1;
-    totalColor += time_sw2;
-    totalClimb += time_sw3;
-    totalRot = getTime(totalRot)
-    totalColor = getTime(totalColor);
-    totalClimb = getTime(totalClimb);
-    driving = document.getElementById("driving").options[document.getElementById("driving").selectedIndex].text; 
-    bot = document.getElementById("bot").options[document.getElementById("bot").selectedIndex].text; 
-    driveTrain = document.getElementById("dTrain").options[document.getElementById("dTrain").selectedIndex].text; 
-    climbPos =document.getElementById("climbPos").options[document.getElementById("climbPos").selectedIndex].text; 
-    death = document.getElementById("die").options[document.getElementById("die").selectedIndex].text; 
-}
+//     if(document.getElementById("verHigh").checked == true || document.getElementById("verLow").checked == true)
+//         {
+//             baseLine = true;
+//             totalPoints += 5
+//         }
+//     totalPoints += (lowCounter) + (highCounter * 2);
+//     if(document.getElementById("verRotate").checked == true)
+//         {
+//             rotational = true;
+//             finalRot = getTime(time_sw1);;
+//             totalPoints += 10    
+//         }
+//     if(document.getElementById("verColor").checked == true)
+//         {
+//             colorSelect = true;
+//             finalColor = getTime(time_sw2);
+//             totalPoints += 20;
+//         }
+//     if(document.getElementById("verClimb").checked == true)
+//         {
+//             climb = true;
+//             finalClimb = getTime(time_sw3);
+//             totalPoints += 30//Check to see if i need to sub 5 from this because the climb includes park points   
+//         }
+//     totalRot += time_sw1;
+//     totalColor += time_sw2;
+//     totalClimb += time_sw3;
+//     totalRot = getTime(totalRot)
+//     totalColor = getTime(totalColor);
+//     totalClimb = getTime(totalClimb);
+//     driving = document.getElementById("driving").options[document.getElementById("driving").selectedIndex].text; 
+//     bot = document.getElementById("bot").options[document.getElementById("bot").selectedIndex].text; 
+//     driveTrain = document.getElementById("dTrain").options[document.getElementById("dTrain").selectedIndex].text; 
+//     climbPos =document.getElementById("climbPos").options[document.getElementById("climbPos").selectedIndex].text; 
+//     death = document.getElementById("die").options[document.getElementById("die").selectedIndex].text; 
+// }
 
 function pushInfo(){
-    //Do the json bro
-    var myObj =
-        { 
-            "Autonomous" : [
-            {
-                "Low" : autoLow,
-                "High" : autoHigh
-            }
-            ],
-            "Teleop":[
-            {
-            "Points": [
-                {
-                    "From Balls":
-                        {
-                            "Low Container": lowCounter,
-                            "High Container": highCounter,
-                        "Total Points": lowCounter * 2 + highCounter * 4,
-                        },
-                    "Total Points":totalPoints
-                }
-            ],
-            "Elements": [
-                {
-                    "Climb": 
-                        {
-                            "Time to Climb": finalClimb,
-                            "Total Time to Climb": totalClimb,
-                            "Success": climb,
-                        },
-                    "Rotaion":
-                        {
-                            "Time to Rotate": finalRot,
-                            "Total Time to Rotate": totalRot,
-                            "Success": rotational,
-                        },
-                     "Color":
-                        {
-                            "Time to Select Color": finalColor,
-                            "Total Time to Select Color": totalColor,
-                            "Success": colorSelect,
-                        }
-                }
-            ],
-            "Opinion":
-                {
-                    "Driving": driving,
-                    "Bot": bot,
-                    "Drive Train": driveTrain,
-                    "Climbing Position": climbPos,
-                    "Did it Die?": death,
-                }
-            }
-            ]
-        }
-    var myJSON = JSON.stringify(myObj); // does reset everythingor j refersh the page?
+   var JSONout = ""; // does reset everythingor j refersh the page?
 }
+  //Do the json bro
+    // var myObj =
+    //     { 
+    //         "Autonomous" : [
+    //         {
+    //             "Low" : autoLow,
+    //             "High" : autoHigh
+    //         }
+    //         ],
+    //         "Teleop":[
+    //         {
+    //         "Points": [
+    //             {
+    //                 "From Balls":
+    //                     {
+    //                         "Low Container": lowCounter,
+    //                         "High Container": highCounter,
+    //                     "Total Points": lowCounter * 2 + highCounter * 4,
+    //                     },
+    //                 "Total Points":totalPoints
+    //             }
+    //         ],
+    //         "Elements": [
+    //             {
+    //                 "Climb": 
+    //                     {
+    //                         "Time to Climb": finalClimb,
+    //                         "Total Time to Climb": totalClimb,
+    //                         "Success": climb,
+    //                     },
+    //                 "Rotaion":
+    //                     {
+    //                         "Time to Rotate": finalRot,
+    //                         "Total Time to Rotate": totalRot,
+    //                         "Success": rotational,
+    //                     },
+    //                  "Color":
+    //                     {
+    //                         "Time to Select Color": finalColor,
+    //                         "Total Time to Select Color": totalColor,
+    //                         "Success": colorSelect,
+    //                     }
+    //             }
+    //         ],
+    //         "Opinion":
+    //             {
+    //                 "Driving": driving,
+    //                 "Bot": bot,
+    //                 "Drive Train": driveTrain,
+    //                 "Climbing Position": climbPos,
+    //                 "Did it Die?": death,
+    //             }
+    //         }
+    //         ]
+    //     }
 
 
 //Classes from here on
 class Objective {
-	constructor(nameIn)
+	constructor(nameIn,multIn,multModIn)
 	{
+		this.timeMod = 13500; // Time that modifier stops working, so for example autonomous ends at 15 seconds in
 		this.name = nameIn;
 		this.objectCountTotal = 0;
 		this.objectCountModified = 0;
 		this.pointValue = 0;
+		this.mult = multIn;
+		this.mult = multModIn;
+		
+	}
+	constructor(nameIn,multModIn)
+	{
+		this.timeMod = 15000;
+		this.name = nameIn;
+		this.objectCountTotal = 0;
+		this.objectCountModified = 0;
+		this.pointValue = 0;
+		this.mult = 1;
+		this.mult = multModIn;
+		
+	}
+	constructor(nameIn)
+	{
+		this.timeMod = 15000;
+		this.name = nameIn;
+		this.objectCountTotal = 0;
+		this.objectCountModified = 0;
+		this.pointValue = 0;
+		this.mult = 1;
+		this.multMod = 2;
 		
 	}
 	
-	increaseObject()
+	increaseObject(time)
 	{
-		objectCount +=pointValue;
+		objectCount += pointValue * (time > timeMod)? mult : multMod;
 	}
-	increaseObjectMod(mult){
-		objectCountModified += pointValue * multi;
+	decreaseObject(time)
+	{
+		objectCount += pointValue * (time > timeMod)? mult : multMod;
 	}
+	// increaseObjectMod() // modified point values such as autonomous
+	// {
+	// 	objectCount += pointValue * multMod;
+	// }
+	// decreaseObjectMod()
+	// {
+	// 	objectCount -= pointValue * multMod;
+	// }
 	 getPointValue()
 	{
 		return pointValue;
+	}
+	makeElement(){
+        document.getElementById("divObj");
+        var element = document.createElement("div", {id : this.name + "div"});
+        element.appendChild(document.createElement(
+            "btn",
+            {
+                id: this.name + "downButton",
+                onClick: this.increaseObject
+                }))
+        element.appendChild(document.createElement(
+                    "div",
+                    {
+                        id: this.name + "Display"
+                    }))
+         
+        element.appendChild(document.createElement(
+                    "btn",
+                    {onClick: this.increaseObject,
+                         id: this.name + "UpButton"}))
+
 	}
 }
 
 class Response {
 
-	constructor(nameIn)
+	constructor(nameIn,values)
 	{
+        this.values = values; // these are the available responses for the column, this is for dropdown menu creation, we assume value[0] = N/A so that we can factor it when we are checking data
+		this.name = nameIn;
+		this.scale = 0;	
+
+    }
+    constructor(nameIn)
+	{
+        this.values = ["N/A","Horrible","Bad","Neutral","Good","Great"];
 		this.name = nameIn;
 		this.scale = 0;	
 
@@ -430,9 +483,12 @@ class Response {
 	setScale(input){
 		scale = input;
 	}
-	getScale(input){
+	getScale(){
 		return scale;
-	}
+    }
+    createElement(){
+
+    }
 }
 
 class Technical {
@@ -444,7 +500,10 @@ class Technical {
 	}
 		setBool(inBool){
 			bool = inBool;
-		}
+        }
+    createElement(){
+
+    }
 }
 
 class TimedObject {
@@ -475,6 +534,9 @@ class TimedObject {
 		timeElapsed = 0; 
 		achieved = false;
 		isRecording = false;
-	}
+    }
+    createElement(){
+
+    }
 	//need to make sure that these objects can be converted into JSON before sent over.
 }

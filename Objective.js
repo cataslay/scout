@@ -41,7 +41,7 @@ class Objective {
 	{
 		objectCount -= pointValue * mult;
 	}
-	increaseObjectMod()
+	increaseObjectMod() // modified point values such as autonomous
 	{
 		objectCount += pointValue * multMod;
 	}
@@ -52,5 +52,8 @@ class Objective {
 	 getPointValue()
 	{
 		return pointValue;
+	}
+	makeElement(){
+		var element = document.createElement(this.name, []);
 	}
 }

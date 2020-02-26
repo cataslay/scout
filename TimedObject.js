@@ -27,5 +27,8 @@ class TimedObject {
 		achieved = false;
 		isRecording = false;
 	}
+	makeElement(){
+		var element = new Element();
+	}
 	//need to make sure that these objects can be converted into JSON before sent over.
 }
