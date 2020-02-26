@@ -1,61 +1,67 @@
-var lowCounter = 0;
-var highCounter = 0;
-var autoLow = 0;
-var autoHigh = 0;
-var totalRot = 0; 
-var totalColor = 0;
-var totalClimb = 0; 
-var finalRot, finalColor, finalClimb; 
+// var lowCounter = 0;
+// var highCounter = 0;
+// var autoLow = 0;
+// var autoHigh = 0;
+// var totalRot = 0; 
+// var totalColor = 0;
+// var totalClimb = 0; 
+// var finalRot, finalColor, finalClimb; 
 var t;
-var totalPoints = 0;
-var baseLine = false;
-var climb = false;
-var rotational = false;
-var colorSelect = false;
-var driving, bot, driveTrain, climbPos, death;
-function decreaseLow(){ 
-    if (lowCounter != 0) {
-            document.getElementById("low").innerHTML = autoLow + --lowCounter;
-        }
-}
-function increaseLow(){
-    document.getElementById("low").innerHTML = autoLow + ++lowCounter;
-}
-function decreaseHigh() {  
-    if(highCounter != 0)
-        {
-            document.getElementById("high").innerHTML = autoHigh + --highCounter;
-        }
-}
-function increaseHigh(){
-    document.getElementById("high").innerHTML = autoHigh + ++highCounter;
-}
-function setAutoLow()
-{
-    if(document.getElementById("verLow").checked == true)
-        {
-            autoLow = lowCounter;
-            lowCounter = 0;
-        }
-    else
-        {
-            lowCounter = lowCounter + autoLow;
-            autoLow = 0;
-        }
-}
-function setAutoHigh()
-{
-    if(document.getElementById("verHigh").checked == true)
-        {
-            autoHigh = highCounter;
-        highCounter = 0;
-        }
-    else
-        {
-            highCounter = highCounter + autoHigh;
-            autoHigh = 0;
-        }
-}
+// var totalPoints = 0;
+// var baseLine = false;
+// var climb = false;
+// var rotational = false;
+// var colorSelect = false;
+// var driving, bot, driveTrain, climbPos, death;
+var objs = {highBall : new Objective("highBall"), highBallInner : new Objective("highBallInner"), lowBall : new Objective("lowBall")};
+var resps = {bot : new Response("bot"), driveTrain : new Response("driveTrain") , climbPos : new Response("climbPos"), driving : new Response("driving")};
+var techs = {death : new Response("drive")};
+var timed = {climb: new TimedObject("climb"),colorRec: new TimedObject("colorRecognition"), rotControl: new TimedObject("rotControl")};
+// Make the code auto fill out html elements according to whats in the sets and then use those html elements to use their representative functions for what they are.
+
+
+// function decreaseLow(){ 
+    
+//     document.getElementById("low").innerHTML = autoLow + --lowCounter;
+// }
+// function increaseLow(){
+//     document.getElementById("low").innerHTML = autoLow + ++lowCounter;
+// }
+// function decreaseHigh() {  
+//     if(highCounter != 0)
+//         {
+//             document.getElementById("high").innerHTML = autoHigh + --highCounter;
+//         }
+// }
+// function increaseHigh(){
+//     document.getElementById("high").innerHTML = autoHigh + ++highCounter;
+// }
+// function setAutoLow()
+// {
+//     if(document.getElementById("verLow").checked == true)
+//         {
+//             autoLow = lowCounter;
+//             lowCounter = 0;
+//         }
+//     else
+//         {
+//             lowCounter = lowCounter + autoLow;
+//             autoLow = 0;
+//         }
+// }
+// function setAutoHigh()
+// {
+//     if(document.getElementById("verHigh").checked == true)
+//         {
+//             autoHigh = highCounter;
+//         highCounter = 0;
+//         }
+//     else
+//         {
+//             highCounter = highCounter + autoHigh;
+//             autoHigh = 0;
+//         }
+// }
 
 var status_sw1 = 0;
 var status_sw2 = 0;
@@ -388,3 +394,87 @@ function pushInfo(){
     var myJSON = JSON.stringify(myObj); // does reset everythingor j refersh the page?
 }
 
+
+//Classes from here on
+class Objective {
+	constructor(nameIn)
+	{
+		this.name = nameIn;
+		this.objectCountTotal = 0;
+		this.objectCountModified = 0;
+		this.pointValue = 0;
+		
+	}
+	
+	increaseObject()
+	{
+		objectCount +=pointValue;
+	}
+	increaseObjectMod(mult){
+		objectCountModified += pointValue * multi;
+	}
+	 getPointValue()
+	{
+		return pointValue;
+	}
+}
+
+class Response {
+
+	constructor(nameIn)
+	{
+		this.name = nameIn;
+		this.scale = 0;	
+
+	}
+	setScale(input){
+		scale = input;
+	}
+	getScale(input){
+		return scale;
+	}
+}
+
+class Technical {
+	constructor(nameIn)
+	{
+		this.name = nameIn;
+		this.bool = false;
+	
+	}
+		setBool(inBool){
+			bool = inBool;
+		}
+}
+
+class TimedObject {
+
+	constructor(nameIn)
+	{
+		this.name = nameIn
+		this.isRecording = false;
+		this.dateBegin = Date.now();
+		this.timeElapsed = 0;
+		this.dateStop = 0;
+		this.achieved = false;
+		// this.stage = 0; For games where there can be multiple states for a timed objects, such as multiple heights to climb to
+	}
+	beginRecord()
+	{
+		dateBegin = Date.now();
+		isRecording = true;
+	}
+	stopRecord()
+	{
+		if(this.isRecording){
+		timeElapsed = (dateBegin / 1000) - (Date.now() / 1000);}
+		isRecording = false;
+	}
+	reset()
+	{
+		timeElapsed = 0; 
+		achieved = false;
+		isRecording = false;
+	}
+	//need to make sure that these objects can be converted into JSON before sent over.
+}
