@@ -293,7 +293,7 @@ class Objective {
                 id : this.name, class: innerObject
             });
             y.textContent += this.name;
-            element.appendChild(y);
+            element.appendChild(y); //
         y.appendChild(document.createElement(
             "btn",
             {
