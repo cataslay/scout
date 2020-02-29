@@ -32,8 +32,8 @@ div{
 .container{
     width: 100%;
 }
-.ObjButton{
-    width: 100%;
+.objButton{
+    width: 90%;
     height: 20%;
     padding-top: 5%;
 }
