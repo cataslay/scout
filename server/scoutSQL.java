@@ -1,7 +1,7 @@
 import java.sql.*;
 public class scoutSQL{
     public static final string serverName = "scoutTest";
-    public static void (String gameIn){
+    public static void executeQueries(String gameIn){
         try(
             Connection connie = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + serverName + "?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
@@ -10,13 +10,9 @@ public class scoutSQL{
                         for(String s : args)
                         stmt.executeQuery(s);
                     }
-                }
-                catch(SQLException ex) {
-         ex.printStackTrace();
                 
+        catch(SQLException ex) {
+            ex.printStackTrace();
+        }
                 
     }
-JSON FORMAT
-{
-    
-}

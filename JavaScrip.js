@@ -1,11 +1,12 @@
 
 var t;
 var pastActionsInverse = [];
-var objs = {highBall : new Objective("highBall"), highBallInner : new Objective("highBallInner",2), lowBall : new Objective("lowBall")};
-var resps = {bot : new Response("bot"), driveTrain : new Response("driveTrain") , climbPos : new Response("climbPos"), driving : new Response("driving")};
-var techs = {death : new Response("drive"), baseLine : new Technical("baseline")};
-var timed = {climb: new TimedObject("climb"), colorRec: new TimedObject("colorRecognition"), rotControl: new TimedObject("rotControl")};
+// var objs = {highBall : new Objective("highBall",2), highBallInner : new Objective("highBallInner",3), lowBall : new Objective("lowBall")};
+// var resps = {bot : new Response("bot"), driveTrain : new Response("driveTrain") , climbPos : new Response("climbPos"), driving : new Response("driving")};
+// var techs = {death : new Response("drive"), baseLine : new Technical("baseline")};
+// var timed = {climb: new TimedObject("climb"), colorRec: new TimedObject("colorRecognition"), rotControl: new TimedObject("rotControl")};
 // Make the code auto fill out html elements according to whats in the sets and then use those html elements to use their representative functions for what they are.
+const url  = "https://127.0.0.1:8080";
 var status_sw1 = 0;
 var status_sw2 = 0;
 var status_sw3 = 0;
@@ -231,51 +232,35 @@ if(t == 135000){
 }
 
 function pushInfo(){
-   var JSONout = ""; // convert objects to json here
+   var JSONout = ""; // convert objects to json 
+   var nextTeam = 0;
+   fetch(url, {
+        method: postMessage,
+        body: JSONout,
+   }).then(function(response){
+        nextTeam = await response;
+   });
 }
 //Classes from here on
 class Objective {
-	constructor(nameIn,multIn,multModIn)
+	constructor(nameIn,pointVal,multModIn)
 	{
-		this.timeMod = 135000; // Time that modifier stops working, so for example autonomous ends at 15 seconds in
+        this.timeMod = 135000; // Time that modifier stops working, so for example autonomous ends at 15 seconds in,  if something arises in a later game change this up so it can be used for both autonomous and non- autonomous multipliers
 		this.name = nameIn;
 		this.objectCountTotal = 0;
 		this.objectCountModified = 0;
-		this.pointValue = 0;
-		this.mult = multIn;
-		this.mult = multModIn;
+		this.pointValue = pointVal;
+		this.multMod = multModIn;
 		
 	}
-	constructor(nameIn,multModIn)
-	{
-		this.timeMod = 135000;
-		this.name = nameIn;
-		this.objectCountTotal = 0;
-		this.objectCountModified = 0;
-		this.pointValue = 0;
-		this.mult = 1;
-		this.mult = multModIn;
-		
-	}
-	constructor(nameIn)
-	{
-		this.timeMod = 135000;
-		this.name = nameIn;
-		this.objectCountTotal = 0;
-		this.objectCountModified = 0;
-		this.pointValue = 0;
-		this.mult = 1;
-		this.multMod = 2;
-		
-	}
-	
+
 	increaseObject(time)
 	{
-		objectCount += pointValue * (time > timeMod)? mult : multMod;
+		objectCount += pointValue * (time > timeMod)? 1 : multMod;
 	}
 	decreaseObject(time)
 	{
-		objectCount += pointValue * (time > timeMod)? mult : multMod;
+		objectCount += pointValue * (time > timeMod)? 1 : multMod;
     }
     
 	 getPointValue()
@@ -317,7 +302,7 @@ class Objective {
                 class : objButton
                 }));
 
-	}
+	} 
 }
 
 class Response {
@@ -329,13 +314,6 @@ class Response {
 		this.scale = 0;	
 
     }
-    constructor(nameIn)
-	{
-        this.values = ["N/A","Horrible","Bad","Neutral","Good","Great"];
-		this.name = nameIn;
-		this.scale = 0;	
-
-	}
 	setScale(input){
 		scale = input;
 	}
