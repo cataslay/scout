@@ -29,6 +29,7 @@ import java.sql.Statement;
     private final static String blueAPI = "https://www.thebluealliance.com/api/ALAp0Ow2FU4kebK98MBJJEa7IILZfS6HgVMtuwwODcLq1KeCPWyVKjGStP9VjKzP";
     // Instance Variables
     private Socket jasonsSock;
+    //public static File sqlData = new File("MatchData.mdf");
     // Static Runtime Variable
     // public static String gameData[];
     public static Vector<String> gameData = new Vector<>();
@@ -57,10 +58,6 @@ import java.sql.Statement;
             }catch(IOException e){System.out.println(new Date() + " : Thread Exception : " + e);}
          }
         
-         public static void setToWorksheet(Set in){
-                
-        }
-   
 
          @Override
          public void run(){
@@ -68,13 +65,11 @@ import java.sql.Statement;
                 BufferedReader buff = new BufferedReader(new InputStreamReader(jasonsSock.getInputStream()));
                 String JSON = buff.readLine();
                 System.out.println("RUN() L4: JSON : " + JSON);
-                setToWorksheet(JSON_TO_MAP(JSON));
-                }
                 catch(IOException ioe){
                  System.out.println(new Date() +" : "+ ioe);
              }
                 
-         }
+         }}
              
        public static Map JSON_TO_MAP(String JSON){
          String identities[] = {"Team Number","Starting Position","Computer Number","Computer Color","Low","High","Low Container","High Container","Total Points","Total Points Again","Time to Climb", "Total Time to Climb", "SuccessClimb","Time to Rotate","SuccessRotate","Time to Select Color","Total Time to Select Color","SuccessColor","Driving","BotScore","Drive Train","Climbing Position","Did it Die?"}; // Basically hardcoded for now, change it so that it has the ability to accept any type of object that is created on the javascript side
@@ -92,5 +87,18 @@ import java.sql.Statement;
     
     return info;}
               
+                
+
+        public static void setToWorksheet(Map in){
+            try{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("localhost:8081", "cataslay", "robotics");
+        String sql = "insert * into RoboticsDataBase values(default,";
+      
+        sql = in.values().stream().map((value) -> "," + value).reduce(sql, String::concat);
+            sql += ")";
+            Statement stmt = con.createStatement();
+        stmt.executeUpdate(sql);
+        }catch(Exception e){System.out.println("Exception occurred while writing data to the file : " + e);}}
     
     }
